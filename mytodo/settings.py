@@ -79,12 +79,13 @@ WSGI_APPLICATION = 'mytodo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': os.environ.get('DB_NAME'), 
         'USER': os.environ.get('DB_USER'), 
         'PASSWORD': os.environ.get('DB_PASSWORD'), 
-        'HOST': os.environ.get('DB_HOST'),      # This must be the Render database hostname
-        'PORT': os.environ.get('DB_PORT', '3306'),
+        'HOST': os.environ.get('DB_HOST'),      
+        # PostgreSQL default port is 5432
+        'PORT': os.environ.get('DB_PORT', '5432'), 
     }
 }
 # Password validation
