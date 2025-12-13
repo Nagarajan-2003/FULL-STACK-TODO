@@ -21,10 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure--(bnw727(#9lewf+cm^vjrfzm@11a&(sftpnv(et^vs4v2sed6'
-
+SECRET_KEY = os.environ.get('SECRET_KEY', 'your-safe-fallback-key-for-local-dev')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
+DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 ALLOWED_HOSTS = ['*']
 
 
@@ -76,18 +75,18 @@ WSGI_APPLICATION = 'mytodo.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'mytodo',   # The name of the database you created
-        'USER': 'dev_admin',   # Your MySQL username
-        'PASSWORD': '2003', # Your MySQL password
-        'HOST': 'localhost',             # Or the IP/hostname of your MySQL server
-        'PORT': '3306',                  # MySQL default port
+        'NAME': os.environ.get('DB_NAME'), 
+        'USER': os.environ.get('DB_USER'), 
+        'PASSWORD': os.environ.get('DB_PASSWORD'), 
+        'HOST': os.environ.get('DB_HOST'),      # This must be the Render database hostname
+        'PORT': os.environ.get('DB_PORT', '3306'),
     }
 }
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
