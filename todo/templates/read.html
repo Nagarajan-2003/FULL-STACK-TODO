@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="d-flex flex-column align-items-center">
+    
+    <table class="table w-75">
+        <thead>
+            <tr>
+                <th scope="col">No</th>
+                <th scope="col">Title</th>
+                <th scope="col">Created</th>
+                <th scope="col">Status (Completed or not)</th>
+                <th scope="col">Operations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for t in todo %}
+            <tr>
+                <th scope="row">{{t.id}}</th>
+                <td>{{t.title}}</td>
+                <td>{{t.createdat}}</td>
+                <td>{{t.completed}}</td>
+                <td>
+                    <a href="{% url 'update' t.id %}" class="btn btn-success me-2">Update</a>
+                    
+                    <a href="{% url 'delete' t.id %}" 
+                        class="btn btn-danger delete" 
+                        data-confirm="Are you sure want to delete the task '{{t.title}}'?">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <a href="{% url 'create'  %}" class="btn btn-success mt-3">CREATE</a>
+
+</div>
+<script>
+    var deleteLinks = document.querySelectorAll('.delete');
+
+    for (var i = 0; i < deleteLinks.length; i++) {
+        deleteLinks[i].addEventListener('click', function(event) {
+            event.preventDefault(); 
+            var choice = confirm(this.getAttribute('data-confirm'));
+            if (choice) {
+                window.location.href = this.getAttribute('href');
+            }
+        });
+    }
+</script>
+{% endblock %}
